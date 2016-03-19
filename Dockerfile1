@@ -1,0 +1,23 @@
+FROM ubuntu
+COPY sources.list /etc/apt/sources.list
+RUN apt-get update
+RUN apt-get -y install netcat openssl libpcre3 dnsmasq procps
+
+COPY kong-0.7.0.trusty_all.deb .
+
+RUN dpkg -i kong-0.7.0.trusty_all.deb
+
+ENV KONG_VERSION 0.7.0
+
+VOLUME ["/etc/kong/"]
+
+COPY kong.yml /etc/kong/kong.yml
+
+COPY kong .
+
+RUN cd kong
+RUN apt-get -y install make build-essential
+RUN make install
+CMD kong start
+
+EXPOSE 8000 8443 8001 7946
