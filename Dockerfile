@@ -4,9 +4,9 @@ RUN apt-get update
 RUN apt-get -y install netcat openssl libpcre3 dnsmasq procps
 RUN apt-get -y install make build-essential
 VOLUME ["/etc/kong/", "/build"]
-COPY kong-0.7.0release0.7.0.trusty_all.deb /build/
+COPY kong-0.7.0.trusty_all.deb  /build/
 
-RUN dpkg -i  /build/kong-0.7.0release0.7.0.trusty_all.deb
+RUN dpkg -i /build/kong-0.7.0.trusty_all.deb
 
 ENV KONG_VERSION 0.7.0
 
